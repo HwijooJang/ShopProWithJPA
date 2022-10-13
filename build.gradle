@@ -48,6 +48,11 @@ dependencies {
     implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
     implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
 
+    // validation 디펜던시
+    implementation 'org.springframework.boot:spring-boot-starter-validation:2.7.4'
+
+
+    implementation 'org.springframework.boot:spring-boot-starter-security:2.7.3'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
