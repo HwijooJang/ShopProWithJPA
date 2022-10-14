@@ -42,7 +42,7 @@ public class Member {
         member.setAddress(memberFormDto.getAddress());
         String password = passwordEncoder.encode(memberFormDto.getPassword());
         member.setPassword(password);
-        member.setRole(Role.USER);
+        member.setRole(Role.USER); // ADMIN으로 바꿔서 하면 관리자 계정 생성
 
         return member;
 
