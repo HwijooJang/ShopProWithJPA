@@ -21,11 +21,13 @@ public class MemberService implements UserDetailsService {
     private final MemberRepository memberRepository;
 
     public Member saveMember(Member member){
+
         validateDuplicateMember(member);
         return memberRepository.save(member);
     }
 
     private void validateDuplicateMember(Member member){
+
         Member findMember = memberRepository.findByEmail(member.getEmail());
         if(findMember != null){
             throw new IllegalStateException("이미 가입된 회원입니다.");
@@ -37,6 +39,7 @@ public class MemberService implements UserDetailsService {
         Member member = memberRepository.findByEmail(email); // 로그인할 유저의 email을 파라미터로 전달받는다.
 
         if(member == null){
+
             throw new UsernameNotFoundException(email); // 예외처리문
         }
         return User.builder() // User 생성을 위해 회원의 이메일, 비밀번호, role 을 파라미터로 넘긴다.
