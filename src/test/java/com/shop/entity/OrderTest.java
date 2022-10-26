@@ -107,7 +107,7 @@ class OrderTest {
 
     @Test
     @DisplayName("지연 로딩 테스트")
-    public void lazyLodingTest(){
+    public void lazyLoadingTest1(){
         Order order = this.CreateOrder(); // 기존에 만들어 두었던 주문 생성 메서드 데이터 저장
         Long orderItemId = order.getOrderItems().get(0).getId();
         em.flush();
@@ -118,6 +118,21 @@ class OrderTest {
         // orderItem 엔티티에 있는 order 객체의 클래스를 출력한다. order 클래스가 출력되는 것을 확인할 수 있다.
         System.out.println("Order Class : " + orderItem.getOrder().getClass());
     }
+    @Test
+    @DisplayName("(Fetch 설정 후)지연 로딩 테스트")
+    public void lazyLoadingTest2(){
+        Order order = this.CreateOrder(); // 기존에 만들어 두었던 주문 생성 메서드 데이터 저장
+        Long orderItemId = order.getOrderItems().get(0).getId();
+        em.flush();
+        em.clear();
 
+        // 영속성 컨텍스트의 상태 초기화 후 order 엔티티에 저장했던 주문 상품 아이디를 이용하여 orderItem을 DB에서 다시 조회한다
+        OrderItem orderItem = orderItemRepository.findById(orderItemId).orElseThrow(EntityNotFoundException::new);
+        // orderItem 엔티티에 있는 order 객체의 클래스를 출력한다. order 클래스가 출력되는 것을 확인할 수 있다.
+        System.out.println("Order Class : " + orderItem.getOrder().getClass());
+        System.out.println("=".repeat(20));
+        orderItem.getOrder().getOrderDate();
+        System.out.println("=".repeat(20));
+    }
 
 }
