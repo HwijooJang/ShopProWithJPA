@@ -26,7 +26,7 @@
                 if(fileExt != "jpg" && fileExt != "jpeg" && fileExt != "gif" && fileExt != "png" && fileExt != "bmp"){
                     alert("이미지 파일만 등록이 가능합니다.");
                     return;
-                }
+                } // 파일 첨부 시 이미지 파일인지 검사한다. 프론트 단에서 검증을 하고 백 단에서도 검증을 한번 해서 이 중 검증으로 한다.
 
                 $(this).siblings(".custom-file-label").html(fileName);
             });

@@ -42,7 +42,7 @@ public class Member extends BaseEntity {
         member.setAddress(memberFormDto.getAddress());
         String password = passwordEncoder.encode(memberFormDto.getPassword());
         member.setPassword(password);
-        member.setRole(Role.USER); // ADMIN으로 바꿔서 하면 관리자 계정 생성
+        member.setRole(Role.ADMIN); // ADMIN으로 바꿔서 하면 관리자 계정 생성
 
         return member;
 
