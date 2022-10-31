@@ -7,8 +7,9 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
-                                                                  // Querydsl을 상속 받아 qdsl을 사용한다.
-public interface ItemRepository extends JpaRepository<Item, Long>, QuerydslPredicateExecutor<Item> {
+                                                                  // Querydsl을 상속 받아 qdsl을 사용한다.    // ItemRepository에서 Querydsl 구현한 상품 관리 페이지 목록을 불러오는
+                                                                                                          // getAdminItemPage() 메서드를 사용할 수 있다.
+public interface ItemRepository extends JpaRepository<Item, Long>, QuerydslPredicateExecutor<Item>, ItemRepositoryCustom {
 
     List<Item> findByItemNm(String itemNm);
     List<Item> findByItemNmOrItemDetail(String itemNm, String itemDetail);
