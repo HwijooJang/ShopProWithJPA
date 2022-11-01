@@ -83,4 +83,9 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{ // 상속
         long total = results.getTotal();
         return new PageImpl<>(content, pageable, total); // 조회한 데이터를 Page 클래스의 구현체인 PageImpl 객체로 반환한다.
     }
+    // 메인화면 구성
+    private BooleanExpression itemNmLike(String searchQuery){
+        // 검색어가 null이 아니면 상품명에 해당 검색어가 포함되는 상품을 조회하는 조건을 반환한다.
+        return StringUtils.isEmpty(searchQuery) ? null : QItem.item.itemNm.like("%" + searchQuery + "%");
+    }
 }
