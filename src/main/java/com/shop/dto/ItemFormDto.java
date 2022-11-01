@@ -11,7 +11,6 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.shop.entity.QItem.item;
 
 @Getter
 @Setter

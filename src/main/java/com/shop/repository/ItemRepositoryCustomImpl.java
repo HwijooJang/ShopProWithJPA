@@ -8,8 +8,9 @@ import com.shop.dto.ItemSearchDto;
 import com.shop.dto.MainItemDto;
 import com.shop.dto.QMainItemDto;
 import com.shop.entity.Item;
-import com.shop.entity.QItem;
 
+
+import com.shop.entity.QItem;
 import com.shop.entity.QItemImg;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

@@ -1,7 +1,6 @@
 package com.shop.service;
 
 import com.shop.entity.Member;
-import com.shop.entity.QItem;
 import com.shop.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;
