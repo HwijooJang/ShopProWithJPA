@@ -8,4 +8,7 @@ import java.util.List;
 public interface ItemImgRepository extends JpaRepository<ItemImg , Long> {
 
     List<ItemImg> findByItemIdOrderByIdAsc(Long itemId);
+
+    // 상품의 대표 이지를 찾는 쿼리 메서드
+    ItemImg findByItemIdAndRepimgYn(Long itemId, String repimgYn);
 }

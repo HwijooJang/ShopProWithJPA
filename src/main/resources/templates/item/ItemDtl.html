@@ -20,47 +20,45 @@
             });
         });
 
-        function calculateToalPrice(){ // 현재 주문할 수량과 상품 한 개당 가격을 곱해서 결제 금액을 구해주는 함수
+        function calculateToalPrice(){
             var count = $("#count").val();
             var price = $("#price").val();
             var totalPrice = price*count;
             $("#totalPrice").html(totalPrice + '원');
         }
 
-        function order(){
+        function order(){ // 스프링 시큐리티를 사용한 경우 기본적으로 POST 방식에는 CSRF 토큰 값이 필요하므로 해당 값들을 조회한다.
             var token = $("meta[name='_csrf']").attr("content");
             var header = $("meta[name='_csrf_header']").attr("content");
 
             var url = "/order";
-            var paramData = {
+            var paramData = { // 주문할 상품의 아이디와 주문 수량 데이터를 전달할 객체를 생성한다.
                 itemId : $("#itemId").val(),
                 count : $("#count").val()
             };
-
-            var param = JSON.stringify(paramData);
+            var param = JSON.stringify(paramData); // 서버에 보낼 주문 데이터를 json으로 변경한다.
 
             $.ajax({
-                url      : url,
-                type     : "POST",
-                contentType : "application/json",
-                data     : param,
-                beforeSend : function(xhr){
-                    /* 데이터를 전송하기 전에 헤더에 csrf값을 설정 */
+                url     : url,
+                type    : "POST",
+                contentType : "application/json", // 서버에 데이터를 보낼 형식을 json으로 지정한다.
+                data    : param,
+                beforeSend : function (xhr){
+                    // 데이터를 전송하기 전에 헤더에 csrf 값을 설정
                     xhr.setRequestHeader(header, token);
                 },
-                dataType : "json",
-                cache   : false,
-                success  : function(result, status){
+                dataType    : "json", // 서버에 결과값으로 받을 데이터의 타입을 json으로 설정한다.
+                cache       : false,
+                success     : function (result, status){ // 주문 로직 호출이 성공하면 "주문완료" 메시지를 보여주고 메인 페이지로 이동
                     alert("주문이 완료 되었습니다.");
                     location.href='/';
                 },
-                error : function(jqXHR, status, error){
-
-                    if(jqXHR.status == '401'){
-                        alert('로그인 후 이용해주세요');
+                error : function (jqXHR, status, error){
+                    if(jqXHR.status == '401'){ // 로그인 상태가 아니라면 로그인 메시지를 보여주고 로그인 페이지로 이동한다.
+                        alert('로그인 후 이용해 주세요.');
                         location.href='/members/login';
-                    } else{
-                        alert(jqXHR.responseText);
+                    } else {
+                        alert(<jqXHR className="responseText">;</jqXHR>) // 주문 시 에러가 발생하면 해당 메시지를 보여준다.
                     }
 
                 }
@@ -192,7 +190,7 @@
         </div>
     </div>
 
-    <div th:each="itemImg : ${item.itemImgDtoList}" class="text-center"> <!--등록된 상품 이미지를 반복 구문을 통해 보여준다. 보통 실제 쇼핑몰에서는 상품에 대한 정보를 이쁘게 만들어 보여준다.-->
+    <div th:each="itemImg : ${item.itemImgDtoList}" class="text-center">
         <img th:if="${not #strings.isEmpty(itemImg.imgUrl)}" th:src="${itemImg.imgUrl}" class="rounded mgb-15" width="800">
     </div>
 
