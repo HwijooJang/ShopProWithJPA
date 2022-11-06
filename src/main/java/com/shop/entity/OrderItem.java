@@ -44,4 +44,9 @@ public class OrderItem extends BaseEntity{
         return orderprice*count;
     }
 
+    // 주문 취소 시 주문 수량 만큼 상품의 재고를 더해준다.
+    public void cancel(){
+        this.getItem().addStock(count);
+    }
+
 }

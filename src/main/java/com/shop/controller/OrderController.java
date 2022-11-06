@@ -52,18 +52,28 @@ public class OrderController {
 
     // 구매이력 조회
     @GetMapping(value = {"/orders", "/orders/{page}"})
-    public String orderHist(@PathVariable("page")Optional<Integer> page, Principal principal, Model model){
+    public String orderHist(@PathVariable("page") Optional<Integer> page, Principal principal, Model model){
         Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 4);
 
         Page<OrderHistDto> ordersHisDtoList = orderService.getOrderList(principal.getName(), pageable);
 
         model.addAttribute("orders", ordersHisDtoList);
         model.addAttribute("page", pageable.getPageNumber());
-        model.addAttribute("maxpage", 5);
+        model.addAttribute("maxPage", 5);
 
         return "/order/orderHist";
     }
 
+    @PostMapping("/order/{orderId}/cancel")
+    public @ResponseBody ResponseEntity cancelOrder(@PathVariable("orderId") Long orderId, Principal principal){
+
+        if(!orderService.validateOrder(orderId, principal.getName())){ // 자바스크립트에서 취소할 주문 번호는 조작이 가능하므로 다른 사람의 주문을 취소하지 못하도록
+            return new ResponseEntity<String>("주문 취소 권한이 없습니다.", HttpStatus.FORBIDDEN); // 주문 취소 권한 검사를 한다.
+        }
+
+        orderService.cancelOrder(orderId); // 주문 취소 로직을 호출한다.
+        return new ResponseEntity<Long>(orderId, HttpStatus.OK);
+    }
 
 
 }
