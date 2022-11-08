@@ -23,4 +23,11 @@ public class Cart extends BaseEntity{
                                     // @JoinColum에 name을 명시하지 않으면 JPA가 알아서 ID를 찾지만 컬럼명이 원하는대로 생성이 되지 않을 수 있다.
     private Member member;
 
+    // 회원 엔티티를 파라미터로 받아서 장바구니 엔티티를 생성하는 로직
+    public static Cart createCart(Member member){
+        Cart cart = new Cart();
+        cart.setMember(member);
+        return cart;
+    }
+
 }
