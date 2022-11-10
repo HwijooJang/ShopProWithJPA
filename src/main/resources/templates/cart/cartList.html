@@ -122,14 +122,14 @@
       var dataList = new Array();
       var paramData = new Object();
 
-      $("input[name=cartChkBox]:checked").each(function() {
+      $("input[name=cartChkBox]:checked").each(function() { // 체크된 장바구니 상품 아이디를 전달하기 위해 dataList 배열에 장바구니 상품 아이디를 객체로 만들어 저장
         var cartItemId = $(this).val();
         var data = new Object();
         data["cartItemId"] = cartItemId;
         dataList.push(data);
       });
 
-      paramData['cartOrderDtoList'] = dataList;
+      paramData['cartOrderDtoList'] = dataList; // 장바구니 상품 아이디를 저장하고 있는 dataList 배열을 paramData 객체에 추가한다.
 
       var param = JSON.stringify(paramData);
 
@@ -146,7 +146,7 @@
         cache   : false,
         success  : function(result, status){
           alert("주문이 완료 되었습니다.");
-          location.href='/orders';
+          location.href='/orders'; // 주문 요청 결과 성공하였다면 구매 이력 페이지로 이동한다.
         },
         error : function(jqXHR, status, error){
 
