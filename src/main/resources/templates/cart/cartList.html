@@ -90,7 +90,7 @@
 
       $.ajax({
         url      : url,
-        type     : "DELETE",
+        type     : "DELETE", // 장바구니 상품을 삭제하는 경우이므로 DeleteType 을 사용
         beforeSend : function(xhr){
           /* 데이터를 전송하기 전에 헤더에 csrf값을 설정 */
           xhr.setRequestHeader(header, token);
@@ -98,7 +98,7 @@
         dataType : "json",
         cache   : false,
         success  : function(result, status){
-          location.href='/cart';
+          location.href='/cart'; // 삭제 요처이 정상적으로 처리되면 장바구니 페이지를 새로고침 한다.
         },
         error : function(jqXHR, status, error){
 

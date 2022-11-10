@@ -94,5 +94,10 @@ public class CartService {
 
         cartItem.updateCount(count);
     }
-
+    // 장바구니 상품 번호를 파라미터로 받아서 삭제하는 로직을 추가
+    public void deleteCartItem(Long cartItemId){
+        CartItem cartItem = cartItemRepository.findById(cartItemId)
+                .orElseThrow(EntityNotFoundException::new);
+        cartItemRepository.delete(cartItem);
+    }
 }
